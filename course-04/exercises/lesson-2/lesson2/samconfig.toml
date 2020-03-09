@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "udacity-serverless-lesson-2"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-f9z92q7pr0wt"
+s3_prefix = "udacity-serverless-lesson-2"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+
