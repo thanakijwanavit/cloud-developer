@@ -17,6 +17,16 @@ Resources:
       CodeUri: code/
       Handler: index.handler
       Runtime: nodejs12.x
+      Policies:
+      - CloudWatchPutMetricPolicy: {}
+      - DynamoDBReadPolicy: 
+            TableName: 'Groups'
+      Environment: 
+            Variables:
+                    DB_USER: 'admin'
+                    DB_PASSWORD: 'password'
+                    DB_HOSTNAME: 'jdbc:mysql://localhost/orders'
+                    GROUPS_TABLE: 'Groups'
       Events:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api

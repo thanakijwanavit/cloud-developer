@@ -15,6 +15,16 @@ Resources:
       CodeUri: HelloWorldFunction
       Handler: index.handler
       Runtime: nodejs12.x
+      Policies:
+      - CloudWatchPutMetricPolicy: {}
+      - DynamoDBReadPolicy:
+          TableName: Groups
+      Environment:
+        Variables:
+          DB_USER: admin
+          DB_PASSWORD: password
+          DB_HOSTNAME: jdbc:mysql://localhost/orders
+          GROUPS_TABLE: Groups
       Events:
         HelloWorld:
           Type: Api
