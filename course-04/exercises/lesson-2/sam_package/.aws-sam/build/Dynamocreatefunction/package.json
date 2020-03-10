@@ -1,0 +1,21 @@
+{
+  "name": "postdynamodb",
+  "version": "1.0.0",
+  "description": "post data to dynamodb Group table",
+  "main": "index.js",
+  "repository": "git@github.com:thanakijwanavit/cloud-developer.git",
+  "author": "nic",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "scripts": {
+    "test": "mocha tests/unit/"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "uuid": "7.0.2",
+    "aws-sdk": "2.635.0"
+  }
+}

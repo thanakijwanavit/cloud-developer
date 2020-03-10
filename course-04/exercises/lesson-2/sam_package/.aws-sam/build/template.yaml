@@ -9,6 +9,29 @@ Globals:
   Function:
     Timeout: 3
 Resources:
+  Dynamocreatefunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: Dynamocreatefunction
+      Handler: index.handler
+      Runtime: nodejs12.x
+      Policies:
+      - CloudWatchPutMetricPolicy: {}
+      - DynamoDBCrudPolicy:
+          TableName: Groups
+      Environment:
+        Variables:
+          DB_USER: admin
+          DB_PASSWORD: password
+          DB_HOSTNAME: jdbc:mysql://localhost/orders
+          GROUPS_TABLE: Groups
+      Events:
+        dynamocreate:
+          Type: Api
+          Properties:
+            StageName: dev
+            Path: /groups
+            Method: post
   HelloWorldFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -29,6 +52,7 @@ Resources:
         HelloWorld:
           Type: Api
           Properties:
+            StageName: dev
             Path: /groups
             Method: get
 Outputs:

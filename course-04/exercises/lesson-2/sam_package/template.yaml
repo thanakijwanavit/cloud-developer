@@ -31,6 +31,7 @@ Resources:
         dynamocreate:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
+            StageName: dev
             Path: /groups
             Method: post
 
@@ -54,6 +55,7 @@ Resources:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
+            StageName: dev
             Path: /groups
             Method: get
 
