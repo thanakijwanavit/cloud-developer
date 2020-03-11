@@ -1,1 +1,1 @@
-sam build&& sam deploy
+sam build&&bash ./samLocalInvoke.sh&&sam deploy

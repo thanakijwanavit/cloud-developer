@@ -6,13 +6,18 @@ Description: 'lesson2
 
   '
 Globals:
+  Api:
+    Cors:
+      AllowMethods: '''*'''
+      AllowHeaders: '''*'''
+      AllowOrigin: '''*'''
   Function:
     Timeout: 3
 Resources:
-  Dynamocreatefunction:
+  DynamoCreateFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: Dynamocreatefunction
+      CodeUri: DynamoCreateFunction
       Handler: index.handler
       Runtime: nodejs12.x
       Policies:
@@ -29,13 +34,14 @@ Resources:
         dynamocreate:
           Type: Api
           Properties:
-            StageName: dev
             Path: /groups
-            Method: post
-  HelloWorldFunction:
+            Method: POST
+            RestApiId:
+              Ref: ApiGatewayApi
+  GetScanFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: HelloWorldFunction
+      CodeUri: GetScanFunction
       Handler: index.handler
       Runtime: nodejs12.x
       Policies:
@@ -49,26 +55,31 @@ Resources:
           DB_HOSTNAME: jdbc:mysql://localhost/orders
           GROUPS_TABLE: Groups
       Events:
-        HelloWorld:
+        getScanEvent:
           Type: Api
           Properties:
-            StageName: dev
             Path: /groups
-            Method: get
+            Method: GET
+            RestApiId:
+              Ref: ApiGatewayApi
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
 Outputs:
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function
     Value:
-      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
+      Fn::Sub: https://${ApiGatewayApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
   HelloWorldFunction:
     Description: Hello World Lambda Function ARN
     Value:
       Fn::GetAtt:
-      - HelloWorldFunction
+      - GetScanFunction
       - Arn
   HelloWorldFunctionIamRole:
     Description: Implicit IAM Role created for Hello World function
     Value:
       Fn::GetAtt:
-      - HelloWorldFunctionRole
+      - GetScanFunctionRole
       - Arn
